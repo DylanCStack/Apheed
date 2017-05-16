@@ -13,13 +13,18 @@ from MyFunctions import reddit
 
 from django.views.generic import View
 
+
+import urllib2, json
+
+
 class MyView(View):
     def get(self, request, *args, **kwargs):
-        return HttpResponse(reddit(arguments))
+        return HttpResponse(reddit(args))
 
     def post(self, request, *args, **kwargs):
-        return HttpResponse(reddit(arguments))
+        return HttpResponse(request)
+        # return HttpResponse(reddit(request))
 
 # Create your views here.
-def index(request, arguments):
-    return HttpResponse(reddit(arguments))
+# def index(request, arguments):
+#     return HttpResponse(reddit(arguments))

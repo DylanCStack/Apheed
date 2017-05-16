@@ -14,19 +14,20 @@ def spoof():
     return {'User-Agent': 'Qd0aaiDRSQfYshjMjr-pRADmoOQ'}
 
 def reddit(arg):
-    domain = "https://reddit.com"
-    target_page = "https://reddit.com/r/aww"
-    domain = "https://twitter.com"
-    target_page = "https://twitter.com/billmurray"
-    content = urllib2.urlopen(target_page).read()
-    soup = BeautifulSoup(content)
+    # domain = "https://reddit.com"
+    # target_page = "https://reddit.com/r/aww"
+    # domain = "https://twitter.com"
+    # target_page = "https://twitter.com/billmurray"
+    # content = urllib2.urlopen(target_page).read()
+    # soup = BeautifulSoup(content)
 
     output = []
 
-    for post in soup.find_all("div", { "class" : "tweet" }):
-        for link in post.find_all('a'):
-            link['href'] = domain + link['href']
-        output += post
+    # for post in soup.find_all("div", { "class" : "tweet" }):
+    #     for link in post.find_all('a'):
+    #         link['href'] = domain + link['href']
+    #     output += post
     output += arg;
+    print arg
 
     return ''.join(map(str,output))
