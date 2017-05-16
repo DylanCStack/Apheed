@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-import urllib2
+import urllib2, json
 # import urllib.request
 # import urllib.error
 
@@ -29,4 +29,4 @@ def reddit(arg):
         output += post
     output += arg;
 
-    return output
+    return ''.join(map(str,output))

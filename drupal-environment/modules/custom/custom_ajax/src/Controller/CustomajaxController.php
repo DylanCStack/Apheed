@@ -31,17 +31,21 @@ class CustomajaxController extends ControllerBase {
         'content' => http_build_query($data)
       )
     );
-    $context  = stream_context_create($options);
-    $result = file_get_contents($url, false, $context);
-  if ($result === FALSE) { /* Handle error */ }
+    // $context  = stream_context_create($options);
+    // $result = file_get_contents($url, false, $context);
+    $result = file_get_contents($url);
+    // var_dump($result);
+
+    if ($result === FALSE) { $result = "<h1>AJAX RESPONSE FAILURE</h1>"; }
+    // $result = json_decode($result);
 
 
-
-  $html = "<h1>AJAX RESPONSE</h1>";
+  $html = "<h1>AJAX RESPONSE SUCCESS</h1>";
   $selector = "#feed-repo";
 
   $response = new AjaxResponse();
   $response->addCommand(new HtmlCommand($selector, $result));
+  // return $response;
   return $response;
 }
 static function test(){
