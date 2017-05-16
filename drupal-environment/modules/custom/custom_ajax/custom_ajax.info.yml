@@ -1,0 +1,5 @@
+name: Custom Ajax Methods
+description: Custom Ajax calls to the apheed API
+core: 8.x
+package: Apheed
+type: module

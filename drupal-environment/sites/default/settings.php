@@ -295,7 +295,7 @@ $config_directories = array();
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = 'lqt_Hol4r2owTHajNKdg1Nq06Byu3h_BSg2j1PBd6JoFnpu9roxzq5RXlt8bZneXIGHdSbDfmg';
+$settings['hash_salt'] = 'xraMRy64bRagSuo3fT7N9ddQAhTQrlZUzsl0PY4eX4LVpLVNyGyR5jiXeagR_lK1lMhwSDiizg';
 
 /**
  * Deployment identifier.
@@ -768,10 +768,10 @@ $databases['default']['default'] = array (
   'username' => 'apheed-admin',
   'password' => 'admin',
   'prefix' => '',
-  'host' => '127.0.0.1',
+  'host' => 'localhost',
   'port' => '8889',
   'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
   'driver' => 'mysql',
 );
 $settings['install_profile'] = 'standard';
-$config_directories['sync'] = 'sites/default/files/config_pEbhXSHzAu6luRkYmrLSOa7nPddmloI4f2PpdzW0L26XZkttLiXG8SriGEvpKk3w6Oz2LVMpOQ/sync';
+$config_directories['sync'] = 'sites/default/files/config_G4KnBX8z3Qf_X7Dp_WM11E20rIE4GrKK-XXws1LMY-imneCPAMLnV5J_uaVHcSm5t_j7AIHBwA/sync';

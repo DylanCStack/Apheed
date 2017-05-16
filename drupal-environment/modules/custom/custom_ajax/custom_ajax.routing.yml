@@ -1,0 +1,15 @@
+custom_ajax.api:
+  path: '/api/{js}/{args}'
+  defaults:
+    _controller: '\Drupal\custom_ajax\Controller\CustomajaxController::apiCall'
+    _title: 'Call Apheed social-media API'
+  requirements:
+    _permission: 'access content'
+
+custom_ajax.form:
+  path: '/myfeed/{fid}'
+  defaults:
+    _title: "Your feed"
+    _form: "\Drupal\custom_ajax\Form\CustomajaxForm"
+  requirements:
+    _permission: 'access content'
