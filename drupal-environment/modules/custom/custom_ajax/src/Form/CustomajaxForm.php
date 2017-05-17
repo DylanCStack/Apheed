@@ -54,32 +54,36 @@ class CustomajaxForm extends FormBase {
     }
 
     $queries = Node::LoadMultiple($load_queries);
-    $tids = [];//taxonomy term ids
-    foreach ($queries as $index => $node) {
-      $in_tids = FALSE;
-      $new_tid = $node->get("field_domain")->getValue()[0]['target_id'];
-      foreach ($tids as $key => $value) {
-        if($new_tid == $value){
-          $in_tids = TRUE;
-        }
-      }
-      if(!$in_tids){
-        $tids[$new_tid] = $new_tid;
-      }
-    }
-    $terms = Term::LoadMultiple($tids);
+    // $tids = [];//taxonomy term ids
+    // foreach ($queries as $index => $node) {
+    //   $in_tids = FALSE;
+    //   $new_tid = $node->get("field_domain")->getValue()[0]['target_id'];
+    //   foreach ($tids as $key => $value) {
+    //     if($new_tid == $value){
+    //       $in_tids = TRUE;
+    //     }
+    //   }
+    //   if(!$in_tids){
+    //     $tids[$new_tid] = $new_tid;
+    //   }
+    // }
+    // $terms = Term::LoadMultiple($tids);
 
     $pre_json = [];
     foreach ($queries as $index => $node) {
-      $domain_term = $node->get("field_domain")->getValue();
-      $domain = $domain_term->get("name")->getValue();
+      // $domain_tid = $node->get("field_domain")->getValue()[0]['target_id'];
+      // $domain = $terms[$domain_tid]->get("name")->getValue();//loads domain name associated with this query object.
+      $domain = $node->get('field_domain')->getValue()[0]['value'];
+      $specificity = $node->get('field_specificity')->getValue();
+      // $pre_json[] = $domain[0]['value'];
+      $pre_json[$domain][] = ['specificity'=>$specificity, 'filter'=>'none'];
     }
 
     $query_json = json_encode($pre_json);
 
-    print '<pre>';
-    print_r($query_json);
-    print'</pre>';
+    // print '<pre>';
+    // print_r($query_json);
+    // print'</pre>';
     $form_queries = [];
 
     $form['getFeed'] = [
@@ -97,28 +101,7 @@ class CustomajaxForm extends FormBase {
     ];
     $form['queries'] = [
       '#type' => 'hidden',
-      '#value' => json_encode([
-        'reddit' => [
-          [
-          'specificity' => 'aww',
-          'filter' => 'none'
-          ],
-          [
-          'specificity' => 'pics',
-          'filter' => 'none'
-          ],
-        ],
-        'twitter' => [
-          [
-            'specificity' => 'billmurray',
-            'filter' => 'none'
-          ],
-          [
-            'specificity' => 'SHAQ',
-            'filter' => 'none'
-          ],
-        ]
-      ])
+      '#value' => $query_json,
     ];
     // $form['twitter_queries'] = [
     //   '#type' => 'hidden',
