@@ -9,7 +9,7 @@ use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
 
 use Drupal\node\Entity\Node;// will replace with user
-use \Drupal\user\Entity\User;
+use Drupal\user\Entity\User;
 // use Drupal\Core\Render\RendererInterface;// would be best practice instead of druapl_render...
 class CustomajaxController extends ControllerBase {
   /**
