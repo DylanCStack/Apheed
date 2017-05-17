@@ -9,7 +9,7 @@ from django.shortcuts import render
 # from .models import Target, Source
 
 from django.http import HttpResponse
-from MyFunctions import reddit, getType
+from MyFunctions import scrape
 
 from django.views.generic import View
 
@@ -19,10 +19,10 @@ import urllib2, json
 
 class MyView(View):
     def get(self, request, *args, **kwargs):
-        return HttpResponse(reddit(args))
+        return HttpResponse(scrape(request))
 
     def post(self, request, *args, **kwargs):
-        return HttpResponse(getType(request))
+        return HttpResponse(scrape(request))
         # return HttpResponse(str(type(request)))
         # return HttpResponse(reddit(request))
 

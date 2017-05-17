@@ -9,6 +9,26 @@ import urllib2, json
 # urlopen = MyOpener().open#              THIS BLOCK SPOOFS A BROWSER
 # urlretrieve = MyOpener().retrieve
 
+def scrape(post_json):
+    myjson = ""
+    for query in post_json:
+        myjson = json.loads(query)
+        queries = myjson['queries']
+        # return queries
+        for domain in json.loads(queries):
+
+
+            for source in json.loads(queries)[domain]:
+                print source
+            #     myjson = myjson
+
+        #         print search
+
+    output = []
+
+    output += json.dumps(myjson)
+    return ''.join(map(str,output))
+
 
 def spoof():
     return {'User-Agent': 'Qd0aaiDRSQfYshjMjr-pRADmoOQ'}

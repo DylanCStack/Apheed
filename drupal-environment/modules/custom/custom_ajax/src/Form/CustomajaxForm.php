@@ -48,33 +48,16 @@ class CustomajaxForm extends FormBase {
     $feed = Node::load($user->get('field_my_feeds')->getValue()[$fid-1]['target_id']);
     $all_queries = $feed->get('field_query')->getValue();
 
-    $loaded_queries = [];
+    $load_queries = [];
     foreach ($all_queries as $key => $value) {
       $load_queries[] = $value['target_id'];
     }
-
     $queries = Node::LoadMultiple($load_queries);
-    // $tids = [];//taxonomy term ids
-    // foreach ($queries as $index => $node) {
-    //   $in_tids = FALSE;
-    //   $new_tid = $node->get("field_domain")->getValue()[0]['target_id'];
-    //   foreach ($tids as $key => $value) {
-    //     if($new_tid == $value){
-    //       $in_tids = TRUE;
-    //     }
-    //   }
-    //   if(!$in_tids){
-    //     $tids[$new_tid] = $new_tid;
-    //   }
-    // }
-    // $terms = Term::LoadMultiple($tids);
 
     $pre_json = [];
     foreach ($queries as $index => $node) {
-      // $domain_tid = $node->get("field_domain")->getValue()[0]['target_id'];
-      // $domain = $terms[$domain_tid]->get("name")->getValue();//loads domain name associated with this query object.
       $domain = $node->get('field_domain')->getValue()[0]['value'];
-      $specificity = $node->get('field_specificity')->getValue();
+      $specificity = $node->get('field_specificity')->getValue()[0]['value'];
       // $pre_json[] = $domain[0]['value'];
       $pre_json[$domain][] = ['specificity'=>$specificity, 'filter'=>'none'];
     }
