@@ -9,7 +9,7 @@ from django.shortcuts import render
 # from .models import Target, Source
 
 from django.http import HttpResponse
-from MyFunctions import reddit
+from MyFunctions import reddit, getType
 
 from django.views.generic import View
 
@@ -22,7 +22,8 @@ class MyView(View):
         return HttpResponse(reddit(args))
 
     def post(self, request, *args, **kwargs):
-        return HttpResponse(request)
+        return HttpResponse(getType(request))
+        # return HttpResponse(str(type(request)))
         # return HttpResponse(reddit(request))
 
 # Create your views here.
