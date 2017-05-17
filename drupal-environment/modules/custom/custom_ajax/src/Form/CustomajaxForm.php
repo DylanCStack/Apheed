@@ -19,8 +19,19 @@ class CustomajaxForm extends FormBase {
   public function getFormId() {
     return 'custom_ajax_form';
   }
-  public function getPosts(){
-    return CustomajaxController::apiCall("ajax", ["arg"]);
+  // public function getPosts(){
+  //   return CustomajaxController::apiCall("ajax", ["arg"]);
+  // }
+  /**
+   * {@inheritdoc}
+   */
+  public function getPosts(array &$form, FormStateInterface $form_state) {
+      $queries = [];
+      $queries['reddit'] = $form_state->getValue('reddit_queries');
+      $queries['twitter'] = $form_state->getValue('twitter_queries');
+
+      return CustomajaxController::apiCall("ajax", $queries);
+
   }
   /**
    * {@inheritdoc}
@@ -40,6 +51,27 @@ class CustomajaxForm extends FormBase {
           ),
         ],
     ];
+    $form['reddit_queries'] = [
+      '#type' => 'hidden',
+      '#value' => json_encode([
+        'specificity' => '/r/aww',
+        'filter' => 'none'
+      ])
+    ];
+    $form['twitter_queries'] = [
+      '#type' => 'hidden',
+      '#value' => json_encode([
+        'specificity' => 'billmurray',
+        'filter' => 'none'
+      ])
+    ];
+
+    $form['actions']['#type'] = 'actions';
+    $form['actions']['submit'] = array(
+      '#type' => 'submit',
+      '#value' => $this->t('Get more posts'),
+      '#button_type' => 'primary',
+    );
 
     return $form;
   }

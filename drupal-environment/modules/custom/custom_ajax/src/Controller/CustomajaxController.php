@@ -22,6 +22,7 @@ class CustomajaxController extends ControllerBase {
 
     $url = 'http://localhost:8000/api/asdf';
     $data = array('key1' => 'value1', 'key2' => 'value2');
+    $data = $args;
 
     // use key 'http' even if you send the request to https://...
     $options = array(
@@ -41,25 +42,15 @@ class CustomajaxController extends ControllerBase {
     // $result = json_decode($result);
 
 
-  $html = "<h1>AJAX RESPONSE SUCCESS</h1>";
-  $selector = "#feed-repo";
+    $html = "<h1>AJAX RESPONSE SUCCESS</h1>";
+    $selector = "#feed-repo";
 
-  $response = new AjaxResponse();
-  $response->addCommand(new HtmlCommand($selector, $result));
-  // return $response;
-  return $response;
+    $response = new AjaxResponse();
+    $response->addCommand(new HtmlCommand($selector, $result));
+    // return $response;
+    return $response;
 }
-static function test(){
-  return "test working";
+  static function test(){
+    return "test working";
+  }
 }
-}
-// // to add ajax on event in render array
-// // for sure works with forms
-// '#ajax' => [
-//     'callback' => array($this, 'validateEmailAjax'),
-//     'event' => 'change',
-//     'progress' => array(
-//       'type' => 'throbber',
-//       'message' => t('Verifying email...'),
-//     ),
-//   ],// use for predictive badges/levels
