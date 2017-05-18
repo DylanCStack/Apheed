@@ -45,7 +45,16 @@ class CustomajaxForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, $fid = 1) {
     $user = User::load(\Drupal::currentUser()->id());
-    $feed = Node::load($user->get('field_my_feeds')->getValue()[$fid-1]['target_id']);
+    @$feed = Node::load($user->get('field_my_feeds')->getValue()[$fid-1]['target_id']);
+    if(!$feed){
+        $form['actions']['#type'] = 'actions';
+        $form['actions']['submit'] = array(
+          '#type' => 'submit',
+          '#value' => $this->t('You have no Feed ' . $fid),
+          '#button_type' => 'primary',
+        );
+        return $form;
+    }
     $all_queries = $feed->get('field_query')->getValue();
 
     $load_queries = [];
@@ -64,7 +73,7 @@ class CustomajaxForm extends FormBase {
 
     $query_json = json_encode($pre_json);
 
-    
+
     $form_queries = [];
 
     $form['getFeed'] = [
