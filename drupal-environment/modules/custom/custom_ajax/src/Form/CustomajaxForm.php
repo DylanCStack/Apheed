@@ -57,16 +57,14 @@ class CustomajaxForm extends FormBase {
     $pre_json = [];
     foreach ($queries as $index => $node) {
       $domain = $node->get('field_domain')->getValue()[0]['value'];
-      $specificity = $node->get('field_specificity')->getValue()[0]['value'];
-      // $pre_json[] = $domain[0]['value'];
-      $pre_json[$domain][] = ['specificity'=>$specificity, 'filter'=>'none'];
+      $specificity = $node->get("field_specificity")->getValue()[0]["value"];
+      // $pre_json[] = $domain[0]["value"];
+      $pre_json[] = ["domain"=>$domain,"specificity"=>$specificity, "filter"=>"none"];
     }
 
     $query_json = json_encode($pre_json);
 
-    // print '<pre>';
-    // print_r($query_json);
-    // print'</pre>';
+    
     $form_queries = [];
 
     $form['getFeed'] = [

@@ -11,24 +11,59 @@ import urllib2, json
 
 def scrape(post_json):
     myjson = ""
+    calls = []
     for query in post_json:
+        # print query.decode('string_escape')
         myjson = json.loads(query)
-        queries = myjson['queries']
         # return queries
-        for domain in json.loads(queries):
+        queries = myjson['queries']
+        for source in json.loads(queries):
 
+            domain = source['domain']
+            specificity = source['specificity']
+            calls.append({"domain": domain, "specificity": specificity})
+        # print (json.loads(queries)[0]['domain'])
+        # for domain in json.loads(queries):
+        #     print domain
+            # print json.dumps(domain)
 
-            for source in json.loads(queries)[domain]:
-                print source
+            # for source in json.loads(queries)[domain]:
+            #
             #     myjson = myjson
+                # print source
 
         #         print search
 
     output = []
+    for call in calls:
+        output.append(getHtml(call))
 
-    output += json.dumps(myjson)
+    # output += json.dumps(myjson)
+    # return ''.join(map(str,output))
+    return output
+
+def getHtml(query):
+    domain = query['domain']
+    specificity = query['specificity']
+    url = ''
+    selector = ''
+    if( domain == 'reddit.com'):
+        return "<H1>REDDIT POSTS GO HERE<H1>"
+        selector = 'thing'
+        url = "http://" + domain + '/r/' + specificity
+    if(domain == 'twitter.com'):
+        selector = 'tweet'
+        url = "http://" + domain + '/' + specificity
+
+    content = urllib2.urlopen(url).read()
+    soup = BeautifulSoup(content)
+
+    output = []
+    for post in soup.find_all("div", { "class" : selector }):
+        for link in post.find_all('a'):
+            link['href'] = domain + link['href']
+        output += post
     return ''.join(map(str,output))
-
 
 def spoof():
     return {'User-Agent': 'Qd0aaiDRSQfYshjMjr-pRADmoOQ'}
